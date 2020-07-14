@@ -1,0 +1,28 @@
+{
+  "name": "my-permission-target",
+  "repo": {
+    "repositories": [
+      "my-repo-local"
+    ],
+    "actions": {
+      "users": {
+        "me": [
+          "read",
+          "annotate",
+          "write",
+          "delete",
+          "manage"
+        ]
+      },
+      "groups": {
+        "readers": [
+          "read"
+        ]
+      }
+    },
+    "include-patterns": [
+      "**"
+    ],
+    "exclude-patterns": []
+  }
+}

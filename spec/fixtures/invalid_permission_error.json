@@ -1,0 +1,8 @@
+{
+  "errors": [
+    {
+      "status": 400,
+      "message": "'HUHU' is not a valid Artifactory permission."
+    }
+  ]
+}

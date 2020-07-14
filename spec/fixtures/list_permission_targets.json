@@ -1,0 +1,10 @@
+[
+  {
+    "name": "my-permission-target-one",
+    "uri": "http://my-artifactory.local/api/v2/security/permissions/my-permission-target-one"
+  },
+  {
+    "name": "my-permission-target-two",
+    "uri": "http://my-artifactory.local/api/v2/security/permissions/my-permission-target-two"
+  }
+]
