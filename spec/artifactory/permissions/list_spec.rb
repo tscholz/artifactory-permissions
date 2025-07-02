@@ -1,11 +1,11 @@
 RSpec.describe Artifactory::Permissions do
   let(:api_client) {
     Artifactory::Permissions.api_client endpoint: endpoint,
-                                        api_key: "the-secret-api-key"
+                                        access_token: "the-secret-access-token"
   }
 
   let(:endpoint) {
-    "http://artifactory.local"
+    "http://artifactory.local/artifactory"
   }
 
   describe "::list" do
@@ -23,9 +23,9 @@ RSpec.describe Artifactory::Permissions do
       is_expected.to eq [:ok,
                          [
                           { "name" => "my-permission-target-one",
-                            "uri" => "http://my-artifactory.local/api/v2/security/permissions/my-permission-target-one" },
+                            "uri" => "http://my-artifactory.local/artifactory/api/v2/security/permissions/my-permission-target-one" },
                           { "name" => "my-permission-target-two",
-                            "uri" => "http://my-artifactory.local/api/v2/security/permissions/my-permission-target-two" },
+                            "uri" => "http://my-artifactory.local/artifactory/api/v2/security/permissions/my-permission-target-two" },
                         ]]
     }
   end

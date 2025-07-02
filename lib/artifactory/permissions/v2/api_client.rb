@@ -20,11 +20,11 @@ module Artifactory
 
         HANDLED_ERRORS = [SocketError] + HTTP_ERRORS
 
-        attr_reader :endpoint, :api_key
+        attr_reader :endpoint, :access_token
 
-        def initialize(endpoint:, api_key:)
-          @endpoint = endpoint
-          @api_key = api_key
+        def initialize(endpoint:, access_token:)
+          @endpoint     = endpoint
+          @access_token = access_token
         end
 
         def list_permissions
@@ -50,7 +50,7 @@ module Artifactory
 
         def put(path, data)
           response = self.class.put uri_for(path),
-                                    body: data.to_json,
+                                    body:    data.to_json,
                                     headers: headers
 
           handle_response response
@@ -89,7 +89,7 @@ module Artifactory
         end
 
         def auth_headers
-          { "X-JFrog-Art-Api" => api_key }
+          { "Authorization" => "Bearer #{access_token}" }
         end
 
         def url_safe(string)

@@ -1,9 +1,9 @@
 RSpec.describe Artifactory::Permissions::V2::ApiClient do
-  let(:client) { described_class.new endpoint: endpoint, api_key: api_key }
+  let(:client) { described_class.new endpoint: endpoint, access_token: access_token }
 
   let(:endpoint) { "http://my-artifactory.local" }
 
-  let(:api_key) { "the-secret-api-key" }
+  let(:access_token) { "the-secret-access-token" }
 
   describe "#list_permissions" do
     let(:payload) {
@@ -12,7 +12,7 @@ RSpec.describe Artifactory::Permissions::V2::ApiClient do
 
     it "returns the artifactory list representation" do
       stub_request(:get, "#{endpoint}/api/v2/security/permissions")
-        .with(headers: { "X-Jfrog-Art-Api" => "the-secret-api-key" })
+        .with(headers: { "Authorization" => "Bearer the-secret-access-token" })
         .to_return(status: 200,
                    body: payload,
                    headers: { "Content-Type" => "application/json" })
@@ -55,7 +55,7 @@ RSpec.describe Artifactory::Permissions::V2::ApiClient do
 
     it "finds permission by name" do
       stub_request(:get, "#{endpoint}/api/v2/security/permissions/my-permission-target")
-        .with(headers: { "X-Jfrog-Art-Api" => "the-secret-api-key" })
+        .with(headers: { "Authorization" => "Bearer the-secret-access-token" })
         .to_return(status: 200,
                    body: payload,
                    headers: { "Content-Type" => "application/json" })
@@ -65,7 +65,7 @@ RSpec.describe Artifactory::Permissions::V2::ApiClient do
 
     it "returns :error if permission not found" do
       stub_request(:get, "#{endpoint}/api/v2/security/permissions/my-permission-target")
-        .with(headers: { "X-Jfrog-Art-Api" => "the-secret-api-key" })
+        .with(headers: { "Authorization" => "Bearer the-secret-access-token" })
         .to_return(status: 404,
                    body: File.read("spec/fixtures/not_found.json"),
                    headers: { "content-type" => ["application/json"] })
@@ -87,7 +87,7 @@ RSpec.describe Artifactory::Permissions::V2::ApiClient do
 
     it "saves a permission target successfully" do
       stub_request(:put, "#{endpoint}/api/v2/security/permissions/my-permission-target")
-        .with(headers: { "X-Jfrog-Art-Api" => "the-secret-api-key" })
+        .with(headers: { "Authorization" => "Bearer the-secret-access-token" })
         .to_return(status: [200, ""])
 
       expect(client.save_permission_target permission_target).to eq [:ok, nil]
@@ -96,7 +96,7 @@ RSpec.describe Artifactory::Permissions::V2::ApiClient do
     context "the added user does not exist in Artifactory" do
       before do
         stub_request(:put, "#{endpoint}/api/v2/security/permissions/my-permission-target")
-          .with(headers: { "X-Jfrog-Art-Api" => "the-secret-api-key" })
+          .with(headers: { "Authorization" => "Bearer the-secret-access-token" })
           .to_return(status: 400,
                      body: File.read("spec/fixtures/not_existing_user_error.json"),
                      headers: { "content-type" => ["application/json"] })
@@ -110,7 +110,7 @@ RSpec.describe Artifactory::Permissions::V2::ApiClient do
     context "the added permission does not exist in Artifactory" do
       before do
         stub_request(:put, "#{endpoint}/api/v2/security/permissions/my-permission-target")
-          .with(headers: { "X-Jfrog-Art-Api" => "the-secret-api-key" })
+          .with(headers: { "Authorization" => "Bearer the-secret-access-token" })
           .to_return(status: 400,
                      body: File.read("spec/fixtures/invalid_permission_error.json"),
                      headers: { "content-type" => ["application/json"] })
@@ -123,10 +123,10 @@ RSpec.describe Artifactory::Permissions::V2::ApiClient do
 
     context "invalid api key" do
       before do
-        allow(client).to receive(:api_key).and_return "huhu"
+        allow(client).to receive(:access_token).and_return "huhu"
 
         stub_request(:put, "#{endpoint}/api/v2/security/permissions/my-permission-target")
-          .with(headers: { "X-Jfrog-Art-Api" => "huhu" })
+          .with(headers: { "Authorization" => "Bearer huhu" })
           .to_return(status: 403,
                      body: File.read("spec/fixtures/bad_props_error.json"),
                      headers: { "content-type" => ["application/json"] })
@@ -137,12 +137,12 @@ RSpec.describe Artifactory::Permissions::V2::ApiClient do
       end
     end
 
-    context "no api-key" do
+    context "no access-token" do
       before do
-        allow(client).to receive(:api_key).and_return ""
+        allow(client).to receive(:access_token).and_return ""
 
         stub_request(:put, "#{endpoint}/api/v2/security/permissions/my-permission-target")
-          .with(headers: { "X-Jfrog-Art-Api" => "" })
+          .with(headers: { "Authorization" => "Bearer" })
           .to_return(status: 401,
                      body: File.read("spec/fixtures/unauthorized_error.json"),
                      headers: { "content-type" => ["application/json"] })
