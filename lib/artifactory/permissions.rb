@@ -76,9 +76,9 @@ module Artifactory
       [permission_target.errors? ? :error : :ok, permission_target, permission_target.errors]
     end
 
-    def api_client(endpoint:, api_key:)
+    def api_client(endpoint:, access_token:)
       V2.api_client endpoint: endpoint,
-                    api_key: api_key
+                    access_token: access_token
     end
   end
 end

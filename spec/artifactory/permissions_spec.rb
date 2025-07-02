@@ -25,8 +25,8 @@ RSpec.describe Artifactory::Permissions do
 
   describe "::api_client" do
     subject {
-      Artifactory::Permissions.api_client endpoint: "http://artifactory.local",
-                                          api_key: "the-secret-api-key"
+      Artifactory::Permissions.api_client endpoint: "http://artifactory.local/artifactory",
+                                          access_token: "the-secret-access-token"
     }
 
     it { is_expected.to be_a Artifactory::Permissions::V2::ApiClient }

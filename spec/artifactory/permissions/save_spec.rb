@@ -5,8 +5,8 @@ RSpec.describe Artifactory::Permissions do
   }
 
   let(:api_client) {
-    Artifactory::Permissions.api_client endpoint: "http://artifactory.local",
-                                        api_key: "the-secret-api-key"
+    Artifactory::Permissions.api_client endpoint: "http://artifactory.local/artifactory",
+                                        access_token: "the-secret-access-token"
   }
 
   describe "::save" do

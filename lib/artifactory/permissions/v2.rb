@@ -8,9 +8,9 @@ module Artifactory
     module V2
       module_function
 
-      def api_client(endpoint:, api_key:)
-        ApiClient.new endpoint: endpoint,
-                      api_key: api_key
+      def api_client(endpoint:, access_token:)
+        ApiClient.new endpoint:     endpoint,
+                      access_token: access_token
       end
 
       def parse_permission_target(payload)

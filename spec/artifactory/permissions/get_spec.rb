@@ -1,11 +1,11 @@
 RSpec.describe Artifactory::Permissions do
   let(:api_client) {
     Artifactory::Permissions.api_client endpoint: endpoint,
-                                        api_key: "the-secret-api-key"
+                                        access_token: "the-secret-access-token"
   }
 
   let(:endpoint) {
-    "http://artifactory.local"
+    "http://artifactory.local/artifactory"
   }
   describe "::get" do
     let(:path) { "/api/v2/security/permissions/my-permission-target" }

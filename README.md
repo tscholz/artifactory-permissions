@@ -27,7 +27,7 @@ Or install it yourself as:
 ### List permission targets accessible to your user
 ```ruby
 api_client = Artifactory::Permissions.api_client endpoint: 'http://artifactory.local',
-                                                 api_key: 'your-api-key'
+                                                 access_token: 'your-access-token'
 
 
 Artifactory::Permissions.list api_client: api_client
@@ -37,7 +37,7 @@ Artifactory::Permissions.list api_client: api_client
 ### Show / find / get permission target
 ```ruby
 api_client = Artifactory::Permissions.api_client endpoint: 'http://artifactory.local',
-                                                 api_key: 'your-api-key'
+                                                 access_token: 'your-access-token'
 
 
 _status, permission_target = Artifactory::Permissions.find name: "<pt-name>",
@@ -52,7 +52,7 @@ _status, permission_target = Artifactory::Permissions.get "<permission-target-re
 ### Add / update / delete users and groups
 ```ruby
 api_client = Artifactory::Permissions.api_client endpoint: 'http://artifactory.local',
-                                                 api_key: 'your-api-key'
+                                                 access_token: 'your-access-token'
 
 _status, permission_target = Artifactory::Permissions.find name: "<permission-target-name>",
                                                            api_client: api_client
