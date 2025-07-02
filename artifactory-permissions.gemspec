@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.summary = %q{Ruby Lib for managing Artifactory PermissionTargets}
   spec.description = %q{Ruby Lib for managing Artifactory PermissionTargets}
   spec.homepage = "https://github.com/tscholz/artifactory-permissions"
-  spec.required_ruby_version = Gem::Requirement.new(">= 2.3.0")
+  spec.required_ruby_version = Gem::Requirement.new(">= 3.2.0")
 
   spec.metadata["allowed_push_host"] = "https://rubygems.org"
 
@@ -26,5 +26,5 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "httparty", "~> 0.18"
+  spec.add_dependency "httparty", "~> 0.23.1"
 end
