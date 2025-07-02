@@ -1,12 +1,14 @@
 module Artifactory
   module Permissions
     class Errors
+      attr_reader :errors
+
       def initialize
         @errors = Hash.new { |h, k| h[k] = [] }
       end
 
       def add(key, msg)
-        @errors[key] << msg
+        errors[key] << msg
         self
       end
 
@@ -17,22 +19,22 @@ module Artifactory
       alias_method :none?, :empty?
 
       def any?
-        @errors.values.flatten.any?
+        errors.values.flatten.any?
       end
 
       def full_messages
-        @errors
+        errors
           .keys
           .map { |key| [key, full_message(key)].join(": ") }
           .join("; ")
       end
 
       def full_message(key)
-        @errors[key].join(", ")
+        errors[key].join(", ")
       end
 
       def to_h
-        @errors.dup
+        errors.dup
       end
     end
   end
